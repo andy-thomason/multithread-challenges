@@ -33,10 +33,17 @@ int main() {
   printf("compute b\n");
   {
     auto start = std::chrono::high_resolution_clock::now();
-    b.compute();
+    b.compute_parallel();
     auto end = std::chrono::high_resolution_clock::now();
     printf("%10dns\n", (int)std::chrono::nanoseconds(end - start).count());
   }
 
-  printf("difference=%f\n", a.distance(b));
+  float distance = a.distance(b);
+  printf("\ndifference=%f\n", distance);
+
+  if (distance > 1e-4f) {
+    printf("FAIL\n");
+  } else {
+    printf("pass\n");
+  }
 }
